@@ -2,96 +2,195 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>Aujchareeya</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สุ่มเมนูอาหาร</title>
+    <!-- ฟอนต์จาก Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; }
+
         body {
-            margin: 0;                 /* เอาขอบว่างของเบราว์เซอร์ออก */
-            min-height: 100vh;         /* สูงเต็มหน้าจอ */
-            display: flex;
-            justify-content: center;   /* การ์ดอยู่กลางแนวนอน */
-            align-items: center;       /* การ์ดอยู่กลางแนวตั้ง */
-            font-family: sans-serif;
-            font-size: 20px;           /* ตัวอักษรใหญ่ขึ้น */
-            color: #222;
+            margin: 0;
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #fff1e6, #ffe0f0);
+            min-height: 100vh;
+            color: #333;
         }
 
-        .card {
-            display: flex;
-            gap: 60px;
-            width: 1000px;             /* การ์ดกว้างขึ้น */
-            max-width: 90%;            /* จอเล็กให้หดตาม ไม่ล้นจอ */
-            padding: 50px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-        }
-
-        .profile, .todo {
-            flex: 1;
-        }
-
-        .profile {
-            text-align: center;
-        }
-
-        img {
-            width: 250px;              /* รูปใหญ่ขึ้น */
-            height: 250px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid #6a7fe4;
-        }
-
-        a, h2 {
-            color: #6a7fe4;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
+        /* ===== Navbar ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
             display: flex;
             justify-content: space-between;
-            padding: 14px 0;
-        }
-
-        input {
-            padding: 8px;
-            font-size: 18px;           /* ช่องพิมพ์ใหญ่ขึ้นให้เข้ากัน */
-        }
-
-        button {
+            align-items: center;
+            padding: 16px 40px;
             background: #6a7fe4;
             color: white;
-            border: none;
-            padding: 8px 18px;
-            font-size: 18px;
-            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
         }
+        .navbar .logo { font-size: 26px; font-weight: 600; }
+        .navbar ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
+        .navbar a { color: white; text-decoration: none; font-size: 18px; }
+        .navbar a:hover { text-decoration: underline; }
+
+        /* ===== เนื้อหา ===== */
+        .main { max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; }
+        .main h1 { font-size: 36px; margin-bottom: 8px; color: #4a5bc4; }
+        .main p.sub { margin-top: 0; font-size: 18px; color: #666; }
+
+        /* การ์ดแสดงเมนู */
+        .food-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin: 30px 0;
+            transition: transform 0.3s;
+        }
+        .food-card:hover { transform: translateY(-4px); }
+        .food-card img { width: 100%; height: 360px; object-fit: cover; display: block; background: #eee; }
+        .food-info { padding: 24px 30px 30px; }
+        .food-info h2 { margin: 0 0 10px; font-size: 32px; color: #333; }
+        .food-info p { margin: 0 0 16px; font-size: 18px; color: #555; line-height: 1.6; }
+        .price { display: inline-block; background: #ffe45e; padding: 8px 22px; border-radius: 30px; font-size: 24px; font-weight: 600; }
+
+        /* ปุ่มสุ่ม */
+        .random-btn {
+            font-family: 'Kanit', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, #6a7fe4, #a56ae4);
+            border: none;
+            padding: 16px 48px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #4a5bc4;
+            transition: all 0.1s;
+        }
+        .random-btn:hover { filter: brightness(1.1); }
+        .random-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #4a5bc4; }
+
+        footer { text-align: center; padding: 30px; color: #888; }
     </style>
 </head>
-
 <body>
-    <div class="card">
 
-        <div class="profile">
-            <img src="profile.jpg" alt="รูปโปรไฟล์">
-            <h1>Aujchareeya Sakornpisalkul</h1>
-            <p>student id : 69070227</p>
-            <p>I love drawing, playing games</p>
-            <p>skills : drawing, singing</p>
-            <a href="https://github.com/69070227">github</a>
+    <!-- Navbar อยู่ด้านบนสุด -->
+    <nav class="navbar">
+        <div class="logo">🍜 Random Menu</div>
+        <ul>
+            <li><a href="#">หน้าแรก</a></li>
+            <li><a href="#menu">สุ่มเมนู</a></li>
+            <li><a href="https://github.com/69070227" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <div class="main" id="menu">
+        <h1>วันนี้กินอะไรดี?</h1>
+        <p class="sub">กดปุ่มด้านล่างเพื่อสุ่มเมนูอาหาร</p>
+
+        <!-- ส่วนแสดงผลข้อมูลอาหาร -->
+        <div class="food-card">
+            <img id="food_img" src="" alt="รูปอาหาร">
+            <div class="food-info">
+                <h2 id="food_name">-</h2>
+                <p id="food_desc">-</p>
+                <span class="price" id="food_price">-</span>
+            </div>
         </div>
 
-        <div class="todo">
-            <h2>To-do List</h2>
-            <input type="text" id="input_name" placeholder="พิมพ์สิ่งที่ต้องทำ...">
-            <button id="btn_add">เพิ่ม</button>
-            <ul id="container"></ul>   <!-- ว่างไว้ ให้ JS สร้างรายการเอง -->
-        </div>
-
+        <!-- ปุ่มสุ่ม -->
+        <button class="random-btn" id="btn_random">🎲 สุ่มเมนู</button>
     </div>
-    <script src="script.js"></script>
+
+    <footer>Aujchareeya Sakornpisalkul · 69070227</footer>
+
+    <script>
+        // ===== รายการอาหาร (มี 6 รายการ) =====
+        // ถ้ารูปไหนไม่ขึ้น แก้ลิงก์ในช่อง img ได้เลย
+        const wiki = (file) => "https://commons.wikimedia.org/wiki/Special:FilePath/" + file + "?width=800";
+
+        const foods = [
+            {
+                name: "ผัดไทย",
+                desc: "เส้นจันท์ผัดซอสมะขามเปรี้ยวหวาน ใส่กุ้งสด เต้าหู้ ถั่วงอก เสิร์ฟพร้อมถั่วป่นและมะนาว",
+                price: 60,
+                img: wiki("Pad_Thai_kung_Chang_Khien_street_stall.jpg")
+            },
+            {
+                name: "ต้มยำกุ้ง",
+                desc: "ซุปรสเปรี้ยวเผ็ดร้อน หอมตะไคร้ ข่า ใบมะกรูด ใส่กุ้งตัวใหญ่และเห็ดฟาง",
+                price: 120,
+                img: wiki("Tom_yam_kung.jpg")
+            },
+            {
+                name: "ส้มตำไทย",
+                desc: "มะละกอสับตำกับพริก มะนาว น้ำปลา ถั่วลิสง และกุ้งแห้ง รสจัดจ้านกินกับข้าวเหนียว",
+                price: 50,
+                img: wiki("Som_tam_Thai.jpg")
+            },
+            {
+                name: "ข้าวมันไก่",
+                desc: "ไก่ต้มนุ่มเสิร์ฟกับข้าวมันหอมๆ น้ำจิ้มเต้าเจี้ยวรสเด็ด พร้อมซุปใส",
+                price: 55,
+                img: wiki("Khao_man_kai.jpg")
+            },
+            {
+                name: "แกงเขียวหวาน",
+                desc: "แกงกะทิหอมมัน รสเผ็ดนำ ใส่ไก่ มะเขือพวง และใบโหระพา กินกับข้าวสวยร้อนๆ",
+                price: 70,
+                img: wiki("Kaeng_khiao_wan.jpg")
+            },
+            {
+                name: "ข้าวผัดกะเพราไข่ดาว",
+                desc: "กะเพราหมูสับผัดจัดจ้าน ราดบนข้าวสวย พร้อมไข่ดาวกรอบๆ ไข่แดงไหลเยิ้ม",
+                price: 50,
+                img: wiki("Phat_kaphrao.jpg")
+            }
+        ];
+
+        // ===== จับ element จาก HTML =====
+        const food_img = document.getElementById("food_img");
+        const food_name = document.getElementById("food_name");
+        const food_desc = document.getElementById("food_desc");
+        const food_price = document.getElementById("food_price");
+        const btn_random = document.getElementById("btn_random");
+
+        let current = -1;   // จำเมนูล่าสุด เพื่อไม่ให้สุ่มซ้ำตัวเดิมติดกัน
+
+        // รูปสำรอง ถ้ารูปจริงโหลดไม่ขึ้น
+        const fallback = "data:image/svg+xml;utf8," + encodeURIComponent(
+            "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'><rect width='100%' height='100%' fill='#ffe0f0'/><text x='50%' y='55%' font-size='160' text-anchor='middle'>🍽️</text></svg>"
+        );
+        food_img.onerror = () => { if (food_img.src !== fallback) food_img.src = fallback; };
+
+        // ===== แสดงเมนูที่ index ที่กำหนด =====
+        function showFood(i){
+            const f = foods[i];
+            food_img.src = f.img;
+            food_name.textContent = f.name;
+            food_desc.textContent = f.desc;
+            food_price.textContent = f.price + " บาท";
+        }
+
+        // ===== สุ่มเมนู =====
+        function randomFood(){
+            let i;
+            do {
+                i = Math.floor(Math.random() * foods.length);   // สุ่มเลข 0 ถึง จำนวนเมนู-1
+            } while (i === current);                            // ถ้าซ้ำตัวเดิมให้สุ่มใหม่
+            current = i;
+            showFood(i);
+        }
+
+        btn_random.addEventListener("click", randomFood);
+
+        // แสดงเมนูแรกตอนเปิดหน้าเว็บ
+        randomFood();
+    </script>
 </body>
 </html>
