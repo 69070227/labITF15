@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Aujchareeya</title>
+    <style>
+        body {
+            margin: 0;                 /* เอาขอบว่างของเบราว์เซอร์ออก */
+            min-height: 100vh;         /* สูงเต็มหน้าจอ */
+            display: flex;
+            justify-content: center;   /* การ์ดอยู่กลางแนวนอน */
+            align-items: center;       /* การ์ดอยู่กลางแนวตั้ง */
+            font-family: sans-serif;
+            font-size: 20px;           /* ตัวอักษรใหญ่ขึ้น */
+            color: #222;
+        }
+
+        .card {
+            display: flex;
+            gap: 60px;
+            width: 1000px;             /* การ์ดกว้างขึ้น */
+            max-width: 90%;            /* จอเล็กให้หดตาม ไม่ล้นจอ */
+            padding: 50px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+        }
+
+        .profile, .todo {
+            flex: 1;
+        }
+
+        .profile {
+            text-align: center;
+        }
+
+        img {
+            width: 250px;              /* รูปใหญ่ขึ้น */
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #6a7fe4;
+        }
+
+        a, h2 {
+            color: #6a7fe4;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 18px;           /* ช่องพิมพ์ใหญ่ขึ้นให้เข้ากัน */
+        }
+
+        button {
+            background: #6a7fe4;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+
+        <div class="profile">
+            <img src="profile.jpg" alt="รูปโปรไฟล์">
+            <h1>Aujchareeya Sakornpisalkul</h1>
+            <p>student id : 69070227</p>
+            <p>I love drawing, playing games</p>
+            <p>skills : drawing, singing</p>
+            <a href="https://github.com/69070227">github</a>
+        </div>
+
+        <div class="todo">
+            <h2>To-do List</h2>
+            <input type="text" id="input_name" placeholder="พิมพ์สิ่งที่ต้องทำ...">
+            <button id="btn_add">เพิ่ม</button>
+            <ul id="container"></ul>   <!-- ว่างไว้ ให้ JS สร้างรายการเอง -->
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
