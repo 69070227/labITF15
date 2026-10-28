@@ -51,7 +51,23 @@
             transition: transform 0.3s;
         }
         .food-card:hover { transform: translateY(-4px); }
-        .food-card img { width: 100%; height: 360px; object-fit: cover; display: block; background: #eee; }
+        
+        /* สไตล์กล่องแสดงรูปSVG */
+        .food-card .img-box {
+            width: 100%;
+            height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff0f5;
+        }
+        .food-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .food-info { padding: 24px 30px 30px; }
         .food-info h2 { margin: 0 0 10px; font-size: 32px; color: #333; }
         .food-info p { margin: 0 0 16px; font-size: 18px; color: #555; line-height: 1.6; }
@@ -95,7 +111,9 @@
 
         <!-- ส่วนแสดงผลข้อมูลอาหาร -->
         <div class="food-card">
-            <img id="food_img" src="" alt="รูปอาหาร">
+            <div class="img-box">
+                <img id="food_img" src="" alt="รูปอาหาร">
+            </div>
             <div class="food-info">
                 <h2 id="food_name">-</h2>
                 <p id="food_desc">-</p>
@@ -110,43 +128,53 @@
     <footer>Aujchareeya Sakornpisalkul · 69070227</footer>
 
     <script>
-        // ===== รายการอาหาร (ใช้ลิงก์รูปตรงที่ใช้งานได้ 100%) =====
+        // ฟังก์ชันสร้างรูปกราฟิก SVG ฝังในสคริปต์แบบ Inline
+        function createSvgImage(emoji, bgColor) {
+            const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'>
+                <rect width='100%' height='100%' fill='${bgColor}'/>
+                <circle cx='400' cy='250' r='140' fill='#ffffff' opacity='0.6'/>
+                <text x='50%' y='60%' font-size='160' text-anchor='middle'>${emoji}</text>
+            </svg>`;
+            return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+        }
+
+        // ===== รายการอาหาร (สร้างรูปภายในไฟล์ 100%) =====
         const foods = [
             {
                 name: "ผัดไทย",
                 desc: "เส้นจันท์ผัดซอสมะขามเปรี้ยวหวาน ใส่กุ้งสด เต้าหู้ ถั่วงอก เสิร์ฟพร้อมถั่วป่นและมะนาว",
                 price: 60,
-                img: "https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&w=800&auto=format&fit=crop"
+                img: createSvgImage("🍝", "#ffe5ec")
             },
             {
                 name: "ต้มยำกุ้ง",
                 desc: "ซุปรสเปรี้ยวเผ็ดร้อน หอมตะไคร้ ข่า ใบมะกรูด ใส่กุ้งตัวใหญ่และเห็ดฟาง",
                 price: 120,
-                img: "https://images.unsplash.com/photo-1548943487-a2e4e43b4850?q=80&w=800&auto=format&fit=crop"
+                img: createSvgImage("🍲", "#ffebd9")
             },
             {
                 name: "ส้มตำไทย",
                 desc: "มะละกอสับตำกับพริก มะนาว น้ำปลา ถั่วลิสง และกุ้งแห้ง รสจัดจ้านกินกับข้าวเหนียว",
                 price: 50,
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Som_tam_Thai.jpg/800px-Som_tam_Thai.jpg"
+                img: createSvgImage("🥗", "#eaf4f4")
             },
             {
                 name: "ข้าวมันไก่",
                 desc: "ไก่ต้มนุ่มเสิร์ฟกับข้าวมันหอมๆ น้ำจิ้มเต้าเจี้ยวรสเด็ด พร้อมซุปใส",
                 price: 55,
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Khao_man_kai_in_Chiang_Mai.jpg/800px-Khao_man_kai_in_Chiang_Mai.jpg"
+                img: createSvgImage("🍗", "#fefae0")
             },
             {
                 name: "แกงเขียวหวาน",
                 desc: "แกงกะทิหอมมัน รสเผ็ดนำ ใส่ไก่ มะเขือพวง และใบโหระพา กินกับข้าวสวยร้อนๆ",
                 price: 70,
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Kaeng_khiao_wan_gai.jpg/800px-Kaeng_khiao_wan_gai.jpg"
+                img: createSvgImage("🍛", "#e8f5e9")
             },
             {
                 name: "ข้าวผัดกะเพราไข่ดาว",
                 desc: "กะเพราหมูสับผัดจัดจ้าน ราดบนข้าวสวย พร้อมไข่ดาวกรอบๆ ไข่แดงไหลเยิ้ม",
                 price: 50,
-                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Khao_phat_kaphrao_mu_sap.jpg/800px-Khao_phat_kaphrao_mu_sap.jpg"
+                img: createSvgImage("🍳", "#fff3cd")
             }
         ];
 
@@ -157,13 +185,7 @@
         const food_price = document.getElementById("food_price");
         const btn_random = document.getElementById("btn_random");
 
-        let current = -1;   // จำเมนูล่าสุด เพื่อไม่ให้สุ่มซ้ำตัวเดิมติดกัน
-
-        // รูปสำรอง ถ้ารูปจริงโหลดไม่ขึ้น
-        const fallback = "data:image/svg+xml;utf8," + encodeURIComponent(
-            "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'><rect width='100%' height='100%' fill='#ffe0f0'/><text x='50%' y='55%' font-size='160' text-anchor='middle'>🍽️</text></svg>"
-        );
-        food_img.onerror = () => { if (food_img.src !== fallback) food_img.src = fallback; };
+        let current = -1;
 
         // ===== แสดงเมนูที่ index ที่กำหนด =====
         function showFood(i){
@@ -178,8 +200,8 @@
         function randomFood(){
             let i;
             do {
-                i = Math.floor(Math.random() * foods.length);   // สุ่มเลข 0 ถึง จำนวนเมนู-1
-            } while (i === current);                            // ถ้าซ้ำตัวเดิมให้สุ่มใหม่
+                i = Math.floor(Math.random() * foods.length);
+            } while (i === current);
             current = i;
             showFood(i);
         }
