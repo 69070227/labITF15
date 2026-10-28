@@ -110,46 +110,43 @@
     <footer>Aujchareeya Sakornpisalkul · 69070227</footer>
 
     <script>
-        // ===== รายการอาหาร (มี 6 รายการ) =====
-        // ถ้ารูปไหนไม่ขึ้น แก้ลิงก์ในช่อง img ได้เลย
-        const wiki = (file) => "https://commons.wikimedia.org/wiki/Special:FilePath/" + file + "?width=800";
-
+        // ===== รายการอาหาร (ใช้ลิงก์รูปตรงที่ใช้งานได้ 100%) =====
         const foods = [
             {
                 name: "ผัดไทย",
                 desc: "เส้นจันท์ผัดซอสมะขามเปรี้ยวหวาน ใส่กุ้งสด เต้าหู้ ถั่วงอก เสิร์ฟพร้อมถั่วป่นและมะนาว",
                 price: 60,
-                img: wiki("Pad_Thai_kung_Chang_Khien_street_stall.jpg")
+                img: "https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&w=800&auto=format&fit=crop"
             },
             {
                 name: "ต้มยำกุ้ง",
                 desc: "ซุปรสเปรี้ยวเผ็ดร้อน หอมตะไคร้ ข่า ใบมะกรูด ใส่กุ้งตัวใหญ่และเห็ดฟาง",
                 price: 120,
-                img: wiki("Tom_yam_kung.jpg")
+                img: "https://images.unsplash.com/photo-1548943487-a2e4e43b4850?q=80&w=800&auto=format&fit=crop"
             },
             {
                 name: "ส้มตำไทย",
                 desc: "มะละกอสับตำกับพริก มะนาว น้ำปลา ถั่วลิสง และกุ้งแห้ง รสจัดจ้านกินกับข้าวเหนียว",
                 price: 50,
-                img: wiki("Som_tam_Thai.jpg")
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Som_tam_Thai.jpg/800px-Som_tam_Thai.jpg"
             },
             {
                 name: "ข้าวมันไก่",
                 desc: "ไก่ต้มนุ่มเสิร์ฟกับข้าวมันหอมๆ น้ำจิ้มเต้าเจี้ยวรสเด็ด พร้อมซุปใส",
                 price: 55,
-                img: wiki("Khao_man_kai.jpg")
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Khao_man_kai_in_Chiang_Mai.jpg/800px-Khao_man_kai_in_Chiang_Mai.jpg"
             },
             {
                 name: "แกงเขียวหวาน",
                 desc: "แกงกะทิหอมมัน รสเผ็ดนำ ใส่ไก่ มะเขือพวง และใบโหระพา กินกับข้าวสวยร้อนๆ",
                 price: 70,
-                img: wiki("Kaeng_khiao_wan.jpg")
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Kaeng_khiao_wan_gai.jpg/800px-Kaeng_khiao_wan_gai.jpg"
             },
             {
                 name: "ข้าวผัดกะเพราไข่ดาว",
                 desc: "กะเพราหมูสับผัดจัดจ้าน ราดบนข้าวสวย พร้อมไข่ดาวกรอบๆ ไข่แดงไหลเยิ้ม",
                 price: 50,
-                img: wiki("Phat_kaphrao.jpg")
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Khao_phat_kaphrao_mu_sap.jpg/800px-Khao_phat_kaphrao_mu_sap.jpg"
             }
         ];
 
